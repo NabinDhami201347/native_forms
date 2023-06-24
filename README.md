@@ -1,5 +1,7 @@
 ```sh
 npx create-expo-app -e with-router
+
+npm install react-native-paper
 ```
 
 ```tsx
