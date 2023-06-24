@@ -1,7 +1,6 @@
 ```sh
 npx create-expo-app -e with-router
-
-npm install react-native-paper
+npm install react-native-paper react-hook-form zod @hookform/resolvers
 ```
 
 ```tsx

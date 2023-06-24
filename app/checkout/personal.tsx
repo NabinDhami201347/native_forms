@@ -1,23 +1,36 @@
 import React from "react";
 import { ScrollView, View } from "react-native";
 import { useRouter } from "expo-router";
-import { Button, Card, TextInput, useTheme } from "react-native-paper";
+
+import { Button, Card, TextInput, HelperText, useTheme } from "react-native-paper";
+import { zodResolver } from "@hookform/resolvers/zod";
+import { useForm, Controller } from "react-hook-form";
+import { personalSchema, PersonalInfo } from "../../src/schemas/checkout.schema";
+import CustomInput from "../../src/components/CustomInput";
 
 const PersonalDetails = () => {
   const router = useRouter();
   const theme = useTheme();
+  const { control, handleSubmit } = useForm<PersonalInfo>({
+    resolver: zodResolver(personalSchema),
+  });
+
+  const onSubmit = (data: PersonalInfo) => {
+    console.log(data, "data");
+    router.push("/checkout/delivery");
+  };
 
   return (
     <ScrollView contentContainerStyle={{ gap: 20 }} showsVerticalScrollIndicator={false}>
       <Card style={{ backgroundColor: theme.colors.background }}>
         <Card.Title title="Personal Information" titleVariant="titleLarge"></Card.Title>
         <Card.Content style={{ gap: 10 }}>
-          <TextInput placeholder="Name" label="Name" style={{ backgroundColor: theme.colors.background }} />
-          <TextInput placeholder="john@gmail.com" label="Email" style={{ backgroundColor: theme.colors.background }} />
+          <CustomInput control={control} name="name" label="Full Name" />
+          <CustomInput control={control} name="email" label="Email" />
         </Card.Content>
       </Card>
 
-      <Button mode="contained" onPress={() => router.push("/checkout/delivery")}>
+      <Button onPress={handleSubmit(onSubmit)} mode="contained">
         Delivery Route
       </Button>
     </ScrollView>
