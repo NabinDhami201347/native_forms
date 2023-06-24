@@ -1,0 +1,23 @@
+import React from "react";
+import { Stack } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+
+export default function CheckoutStack() {
+  return (
+    <>
+      <StatusBar style="light" />
+      <Stack
+        screenOptions={{
+          contentStyle: { padding: 15, backgroundColor: "#F0EBFB", flex: 1 },
+          headerStyle: { backgroundColor: "#673AB8" },
+          headerTitleStyle: { color: "white" },
+          headerTintColor: "#F0EBFB",
+        }}
+      >
+        <Stack.Screen name="index" options={{ title: "Personal Infromation" }} />
+        <Stack.Screen name="delivery" options={{ title: "Delivery Infromation" }} />
+        <Stack.Screen name="payment" options={{ title: "Payment Infromation" }} />
+      </Stack>
+    </>
+  );
+}
