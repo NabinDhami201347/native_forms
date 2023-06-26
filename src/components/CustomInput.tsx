@@ -15,7 +15,7 @@ const CustomInput: React.FC<CustomInputProps> = ({ control, name, ...textInputPr
       control={control}
       name={name}
       render={({ field: { value, onChange, onBlur }, fieldState: { error, invalid } }) => (
-        <View>
+        <View style={{ flex: 1 }}>
           <TextInput
             {...textInputProps}
             style={{ backgroundColor: theme.colors.background }}
