@@ -1,12 +1,13 @@
 import { useRouter } from "expo-router";
 import React from "react";
-import { ScrollView, Text, View } from "react-native";
+import { ScrollView, View, Alert } from "react-native";
 import { Button, Card, Checkbox, useTheme } from "react-native-paper";
 
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm, Controller } from "react-hook-form";
 import { PaymentInfo, paymentSchema } from "../../src/schemas/checkout.schema";
 import CustomInput from "../../src/components/CustomInput";
+import { useCheckoutContext } from "../../src/contexts/CheckoutContext";
 
 const PaymentDetails = () => {
   const router = useRouter();
@@ -16,9 +17,17 @@ const PaymentDetails = () => {
     resolver: zodResolver(paymentSchema),
   });
 
-  const onSubmit = (data: PaymentInfo) => {
-    console.log(data);
-    router.push("/");
+  const { setPayment, onSubmitAll } = useCheckoutContext();
+
+  const onSubmit = async (data: PaymentInfo) => {
+    // setPayment(data);
+    const success = await onSubmitAll(data);
+
+    if (success) {
+      router.push("/");
+    } else {
+      Alert.alert("Failed to submit");
+    }
   };
 
   return (

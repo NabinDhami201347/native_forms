@@ -7,6 +7,7 @@ import { useForm, Controller } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
 import CustomInput from "../../src/components/CustomInput";
 import { DeliveryInfo, deliverySchema } from "../../src/schemas/checkout.schema";
+import { useCheckoutContext } from "../../src/contexts/CheckoutContext";
 
 const DeliveryDetails = () => {
   const router = useRouter();
@@ -18,8 +19,10 @@ const DeliveryDetails = () => {
     },
   });
 
+  const { setDelivery } = useCheckoutContext();
+
   const onSubmit = (data: DeliveryInfo) => {
-    console.log(data, "data");
+    setDelivery(data);
     router.push("/checkout/payment");
   };
 

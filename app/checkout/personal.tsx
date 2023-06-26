@@ -5,8 +5,10 @@ import { useRouter } from "expo-router";
 import { Button, Card, useTheme } from "react-native-paper";
 import { zodResolver } from "@hookform/resolvers/zod";
 import { useForm } from "react-hook-form";
+
 import { personalSchema, PersonalInfo } from "../../src/schemas/checkout.schema";
 import CustomInput from "../../src/components/CustomInput";
+import { useCheckoutContext } from "../../src/contexts/CheckoutContext";
 
 const PersonalDetails = () => {
   const router = useRouter();
@@ -15,8 +17,10 @@ const PersonalDetails = () => {
     resolver: zodResolver(personalSchema),
   });
 
+  const { setPersonal } = useCheckoutContext();
+
   const onSubmit = (data: PersonalInfo) => {
-    console.log(data, "data");
+    setPersonal(data);
     router.push("/checkout/delivery");
   };
 
